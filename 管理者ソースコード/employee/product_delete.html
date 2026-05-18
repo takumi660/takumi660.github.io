@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>商品削除</title>
+
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+    background: #fff;
+  }
+
+  .screen {
+    width: 360px;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 40px; /* 下のページ番号の余白 */
+  }
+
+  /* ===== ヘッダー ===== */
+  .header {
+    position: relative;
+    padding: 16px 12px 10px;
+  }
+
+  .title {
+    color: #1e4fbf;        /* 画像っぽく青（不要なら #000 に） */
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .gear {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  /* ===== 吹き出し（説明） ===== */
+  .hint {
+    position: absolute;
+    top: 10px;
+    right: 44px;
+    background: #2f5fbe;
+    color: #fff;
+    font-size: 11px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    line-height: 1.3;
+    max-width: 170px;
+  }
+  .hint::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    bottom: -6px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #2f5fbe transparent transparent transparent;
+  }
+
+  /* ===== 検索 ===== */
+  .content {
+    padding: 0 22px;
+  }
+
+  .search-row {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .search-row input {
+    flex: 1;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 14px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .search-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 34px;
+    text-align: center;
+  }
+
+  /* ===== 検索結果 ===== */
+  .label {
+    margin: 14px 0 8px;
+    font-size: 14px;
+  }
+
+  .result-box {
+    border: 1px solid #999;
+    height: 320px;
+    padding: 12px 10px;
+    box-sizing: border-box;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .item input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ===== 下ボタン ===== */
+  .bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 18px 22px 0;
+  }
+
+  .bottom-buttons button {
+    width: 120px;
+    height: 42px;
+    font-size: 16px;
+    border: 1px solid #999;
+    background: #eee;
+    cursor: pointer;
+  }
+
+  /* ===== ページ番号 ===== */
+  .page-no {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    font-size: 12px;
+    color: #666;
+  }
+
+  /* ===== オーバーレイ共通（確認/ログアウト） ===== */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dialog {
+    width: 280px;
+    background: #dfe5ea;
+    border: 1px solid #333;
+    padding: 18px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .dialog .message {
+    font-size: 14px;
+    margin: 12px 0 18px;
+  }
+
+  .dialog-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+  }
+
+  /* ボタンサイズを他画面に揃える */
+  .dialog button {
+    width: 80px;
+    height: 36px;
+    font-size: 14px;
+    border: 1px solid #333;
+    background: #e9eef3;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+  <div class="screen">
+
+    <!-- ヘッダー -->
+    <div class="header">
+      <div class="title">商品削除</div>
+
+     
+    </div>
+
+    <div class="content">
+      <!-- 検索欄 -->
+      <div class="search-row">
+        <input id="search" type="text" placeholder="">
+        <button class="search-btn" onclick="doSearch()">🔍</button>
+      </div>
+
+      <div class="label">検索結果</div>
+
+      <!-- 結果枠 -->
+      <div class="result-box" id="resultBox">
+        <!-- JSで生成 -->
+      </div>
+    </div>
+
+    <!-- 下部ボタン -->
+    <div class="bottom-buttons">
+      <button onclick="goBack()">戻る</button>
+      <button onclick="openDeleteConfirm()">削除</button>
+    </div>
+
+    <!-- ページ番号（4-1 / 4-2） -->
+    <div class="page-no" id="pageNo">4-1</div>
+  </div>
+
+  <!-- 削除確認（4-2相当） -->
+  <div class="overlay" id="deleteConfirm">
+    <div class="dialog">
+      <div class="message">商品の削除を許可しますか？</div>
+      <div class="dialog-buttons">
+        <button onclick="closeDeleteConfirm()">いいえ</button>
+        <button onclick="deleteSelected()">はい</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ログアウト確認（共通） -->
+  <div class="overlay" id="logout">
+    <div class="dialog">
+      <div class="message">ログアウトしますか？</div>
+      <div class="dialog-buttons">
+        <button onclick="closeLogout()">いいえ</button>
+        <button onclick="logout()">はい</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // 例のデータ（画像に合わせて「かわ」「もも」）
+  let items = ["かわ", "もも",];
+  let filtered = [...items];
+
+  // 初期表示
+  renderList(filtered);
+
+  // Enterキーでも検索
+  document.getElementById("search").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") doSearch();
+  });
+
+  function renderList(list) {
+    const box = document.getElementById("resultBox");
+    box.innerHTML = "";
+
+    list.forEach(name => {
+      const row = document.createElement("div");
+      row.className = "item";
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = name;
+
+      // 画像っぽく「もも」にチェックが入っている状態を再現したい場合
+      if (name === "もも") cb.checked = true;
+
+      const label = document.createElement("div");
+      label.textContent = name;
+
+      row.appendChild(cb);
+      row.appendChild(label);
+      box.appendChild(row);
+    });
+  }
+
+  function doSearch() {
+    const q = document.getElementById("search").value.trim();
+    if (!q) {
+      filtered = [...items];
+    } else {
+      // 「あたま一致」っぽい検索（先頭一致）
+      filtered = items.filter(x => x.startsWith(q));
+      // 途中一致にしたいなら: items.filter(x => x.includes(q));
+    }
+    renderList(filtered);
+  }
+
+  function getCheckedValues() {
+    const checks = document.querySelectorAll('#resultBox input[type="checkbox"]:checked');
+    return Array.from(checks).map(c => c.value);
+  }
+
+  function goBack() {
+    location.href = "menu.html";
+  }
+
+  // ===== 削除確認 =====
+  function openDeleteConfirm() {
+    const selected = getCheckedValues();
+    if (selected.length === 0) {
+      alert("削除する商品を選択してください");
+      return;
+    }
+    document.getElementById("deleteConfirm").style.display = "flex";
+    document.getElementById("pageNo").textContent = "4-2";
+  }
+
+  function closeDeleteConfirm() {
+    document.getElementById("deleteConfirm").style.display = "none";
+    document.getElementById("pageNo").textContent = "4-1";
+  }
+
+  function deleteSelected() {
+  const selected = getCheckedValues();
+
+  // 選択されたものを削除（仮処理）
+  items = items.filter(x => !selected.includes(x));
+
+  closeDeleteConfirm();
+  alert("削除しました（仮）");
+
+  // ✅ メニュー画面へ戻る
+  location.href = "menu.html";
+}
+
+  
+  function logout() {
+    location.href = "../login.html";
+  }
+</script>
+</body>
+</html>

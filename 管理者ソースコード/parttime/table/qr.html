@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QRコード表示</title>
+
+<style>
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  background: #fff;
+}
+
+.screen {
+  width: 360px;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.info {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.qr {
+  width: 240px;
+  height: 240px;
+  background: #000;
+  color: #fff;
+  margin: 30px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.barcode {
+  width: 200px;
+  padding: 15px 0;
+  background: #000;
+  color: #fff;
+  margin: 20px auto;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+  <div class="info">
+
+    顧客ID：xxxxxxx<br>
+    テーブル番号：<span id="tableNo">○○</span>
+  </div>
+
+  <div class="qr">QRコード</div>
+
+  <div class="barcode">バーコード</div>
+
+</div>
+
+<script>
+  // ✅ 保存したテーブル番号を表示
+  const tableNo = localStorage.getItem("tableNo");
+  if (tableNo) {
+    document.getElementById("tableNo").textContent = tableNo;
+  }
+</script>
+
+</body>
+</html>

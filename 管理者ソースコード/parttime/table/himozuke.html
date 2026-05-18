@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QRコード生成</title>
+
+<style>
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  background: #fff;
+}
+
+.screen {
+  width: 360px;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.title {
+  color: #1e4be8;
+  font-size: 18px;
+  margin-bottom: 60px;
+}
+
+.center {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.input-box {
+  width: 220px;
+  height: 45px;
+  border: 1px solid #000;
+  margin: 0 auto 80px;
+  display: block;
+  font-size: 16px;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.buttons button {
+  width: 130px;
+  height: 50px;
+  font-size: 16px;
+  background: #eee;
+  border: 1px solid #999;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.page {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 14px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+  <div class="title">QRコード生成</div>
+
+  <div class="center">
+    生成するQRコードと<br>
+    紐づけるテーブル番号を入力
+  </div>
+
+  <input type="text" id="tableNo" class="input-box" placeholder="">
+
+  <div class="buttons">
+    <a href="index.html">
+      <button>戻る</button>
+    </a>
+
+    <a href="qr.html">
+      <button>発行</button>
+    </a>
+  </div>
+
+  
+
+</div>
+
+<script>
+function issue() {
+  const tableNo = document.getElementById("tableNo").value.trim();
+
+  if (tableNo === "") {
+    alert("テーブル番号を入力してください");
+    return;
+  }
+
+  // ✅ テーブル番号を保存
+  localStorage.setItem("tableNo", tableNo);
+
+  // 次の画面へ
+  location.href = "qr_view.html";
+}
+</script>
+
+</body>
+</html>

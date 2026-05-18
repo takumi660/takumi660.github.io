@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注文キャンセル</title>
+
+<style>
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  background: #fff;
+}
+
+.screen {
+  width: 360px;
+  box-sizing: border-box;
+  padding-bottom: 20px;
+}
+
+/* 上部ヘッダー */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #999;
+  font-size: 14px;
+}
+
+.header-left {
+  color: #1e4be8;
+}
+
+/* コンテンツ枠 */
+.box {
+  margin: 20px;
+  border: 1px solid #1e4be8;
+  min-height: 260px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* 商品行 */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ＋− ボタン（ダミー） */
+.circle {
+  width: 22px;
+  height: 22px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 22px;
+  font-size: 14px;
+}
+
+/* 下ボタン */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.buttons button {
+  width: 130px;
+  height: 55px;
+  font-size: 16px;
+  background: #eee;
+  border: 1px solid #999;
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+  <!-- ヘッダー -->
+  <div class="header">
+    <div class="header-left">注文キャンセル</div>
+    <div>卓番：○○</div>
+  </div>
+
+  <!-- 商品枠 -->
+  <div class="box">
+
+    <div class="item">
+      <div>ポテトサラダ</div>
+      <div class="count">
+        <div class="circle">＋</div>
+        <div>1</div>
+        <div class="circle">－</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div>きゅうりの一本漬け</div>
+    </div>
+
+  </div>
+
+  <!-- 下ボタン -->
+  <div class="buttons">
+    <!-- 戻る：注文履歴画面へ -->
+    <a href="history.html">
+      <button type="button">戻る</button>
+    </a>
+
+    <a href="../menu.html">
+      <button type="button">確定</button>
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>
