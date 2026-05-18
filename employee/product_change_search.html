@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>商品変更</title>
+
+<style>
+  body{
+    margin:0;
+    display:flex;
+    justify-content:center;
+    font-family:sans-serif;
+    background:#fff;
+  }
+  .screen{
+    width:360px;
+    min-height:100vh;
+    position:relative;
+    padding-bottom:40px;
+  }
+
+  /* 上部 */
+  .top{
+    position:relative;
+    padding:14px 14px 6px;
+  }
+  .title{
+    color:#2460c0;  /* 画像っぽく青。黒に揃えるなら #000 に */
+    font-size:16px;
+    font-weight:600;
+  }
+  .gear{
+    position:absolute;
+    top:12px;
+    right:12px;
+    font-size:22px;
+    cursor:pointer;
+    color:#000;
+  }
+
+  /* 検索 */
+  .content{ padding:0 22px; }
+  .search-row{
+    margin-top:10px;
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .search-row input{
+    flex:1;
+    height:34px;
+    padding:0 10px;
+    font-size:14px;
+    border:1px solid #999;
+    border-radius:6px;
+    box-sizing:border-box;
+  }
+  .search-btn{
+    width:38px;
+    height:36px;
+    border:1px solid #999;
+    border-radius:6px;
+    background:#fff;
+    cursor:pointer;
+    font-size:18px;
+    line-height:34px;
+    text-align:center;
+  }
+
+  .label{
+    margin:14px 0 8px;
+    font-size:14px;
+  }
+
+  /* 結果枠 */
+  .result-box{
+    border:1px solid #999;
+    height:340px;
+    padding:12px 10px;
+    box-sizing:border-box;
+    overflow:auto;
+  }
+  .item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:10px 0;
+    font-size:16px;
+  }
+  .item input[type="radio"]{
+    width:20px; height:20px;
+  }
+
+  /* 下ボタン */
+  .bottom{
+    display:flex;
+    justify-content:space-between;
+    padding:18px 22px 0;
+  }
+  .bottom button{
+    width:120px;
+    height:42px;
+    font-size:16px;
+    border:1px solid #999;
+    background:#eee;
+    cursor:pointer;
+  }
+
+  /* ページ番号（任意） */
+  .page-no{
+    position:absolute;
+    right:14px;
+    bottom:10px;
+    font-size:12px;
+    color:#666;
+  }
+
+  /* ログアウト */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.3);
+    display:none;
+    justify-content:center;
+    align-items:center;
+  }
+  .dialog{
+    width:300px;
+    background:#dfe5ea;
+    border:1px solid #333;
+    padding:18px;
+    box-sizing:border-box;
+  }
+  .dialog .message{
+    font-size:14px;
+    margin:18px 0 18px;
+    text-align:left;
+  }
+  .dialog-buttons{
+    display:flex;
+    justify-content:space-around;
+    gap:12px;
+  }
+  .dialog button{
+    width:80px;
+    height:36px;
+    font-size:14px;
+    border:1px solid #333;
+    background:#e9eef3;
+    cursor:pointer;
+  }
+</style>
+</head>
+
+<body>
+  <div class="screen">
+    <div class="top">
+      <div class="title">商品変更</div>
+    </div>
+
+    <div class="content">
+      <div class="search-row">
+        <input id="search" type="text" />
+        <button class="search-btn" onclick="doSearch()">🔍</button>
+      </div>
+
+      <div class="label">検索結果</div>
+      <div class="result-box" id="resultBox"></div>
+    </div>
+
+    <div class="bottom">
+      <button onclick="goBack()">戻る</button>
+      <button onclick="goNext()">次へ</button>
+    </div>
+
+    <div class="page-no">（変更-1）</div>
+  </div>
+
+
+<script>
+  // 仮データ
+  let items = ["かわ", "もも",];
+  let filtered = [...items];
+
+  renderList(filtered);
+
+  document.getElementById("search").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") doSearch();
+  });
+
+  function renderList(list){
+    const box = document.getElementById("resultBox");
+    box.innerHTML = "";
+
+    list.forEach((name, idx) => {
+      const row = document.createElement("div");
+      row.className = "item";
+
+      const r = document.createElement("input");
+      r.type = "radio";
+      r.name = "target";
+      r.value = name;
+
+      // 画像っぽく初期で「もも」選択にしたい場合
+      if (name === "もも") r.checked = true;
+
+      const text = document.createElement("div");
+      text.textContent = name;
+
+      row.appendChild(r);
+      row.appendChild(text);
+      box.appendChild(row);
+    });
+  }
+
+  // 「あたま一致」検索
+  function doSearch(){
+    const q = document.getElementById("search").value.trim();
+    filtered = !q ? [...items] : items.filter(x => x.startsWith(q));
+    renderList(filtered);
+  }
+
+  function getSelected(){
+    const sel = document.querySelector('input[name="target"]:checked');
+    return sel ? sel.value : "";
+  }
+
+  function goBack(){
+    location.href = "menu.html";
+  }
+
+  function goNext(){
+    const item = getSelected();
+    if (!item){
+      alert("変更する商品を選択してください");
+      return;
+    }
+    location.href = "product_change_edit.html?item=" + encodeURIComponent(item);
+  }
+
+</script>
+</body>
+</html>

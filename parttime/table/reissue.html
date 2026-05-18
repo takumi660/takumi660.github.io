@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>テーブル管理</title>
+
+<style>
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  background: #fff;
+}
+
+.screen {
+  width: 360px;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* タイトル */
+.title {
+  color: #1e4be8;
+  font-size: 18px;
+  margin-bottom: 80px;
+}
+
+/* 中央エリア */
+.center {
+  text-align: center;
+  margin-bottom: 80px;
+  font-size: 16px;
+}
+
+/* 入力枠（見た目用） */
+.input-box {
+  margin: 25px auto 0;
+  width: 200px;
+  height: 45px;
+  border: 1px solid #000;
+}
+
+/* ボタンエリア */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-top: 40px;
+}
+
+.buttons button {
+  width: 130px;
+  height: 50px;
+  font-size: 16px;
+  background: #eee;
+  border: 1px solid #999;
+}
+
+/* リンク装飾解除 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+  <!-- タイトル -->
+  <div class="title">テーブル管理</div>
+
+  <!-- 発行番号 -->
+  <div class="center">
+    発行するテーブル番号
+    <div class="input-box"></div>
+  </div>
+
+  <!-- ボタン -->
+  <div class="buttons">
+   
+    <a href="index.html">
+      <button>戻る</button>
+    </a>
+
+   <a href="../menu.html">
+      <button>決定</button>
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>

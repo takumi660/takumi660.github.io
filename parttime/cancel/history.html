@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注文キャンセル - 注文履歴</title>
+
+<style>
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  background: #fff;
+}
+
+.screen {
+  width: 360px;
+  box-sizing: border-box;
+}
+
+/* ヘッダー */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #999;
+  font-size: 14px;
+}
+
+.header-left {
+  color: #1e4be8;
+}
+
+.header-right {
+  font-size: 14px;
+}
+
+/* タイトル */
+.title {
+  text-align: center;
+  font-size: 18px;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+/* 注文一覧 */
+.list {
+  padding: 0 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+  font-size: 15px;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #333;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 20px;
+}
+
+/* チェック済み（ダミー） */
+.checked {
+  border-color: #000;
+}
+.checked::after {
+  content: "✓";
+  font-size: 16px;
+}
+
+/* 済マーク */
+.done {
+  background: #f8b3a6;
+  color: #000;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.name {
+  flex: 1;
+}
+
+.count {
+  white-space: nowrap;
+}
+
+/* ボタン */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 20px 20px;
+}
+
+.buttons button {
+  width: 120px;
+  height: 50px;
+  font-size: 16px;
+  background: #eee;
+  border: 1px solid #999;
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+
+  <!-- 上部ヘッダー -->
+  <div class="header">
+    <div class="header-left">注文キャンセル</div>
+    <div class="header-right">卓番：○○</div>
+  </div>
+
+  <!-- タイトル -->
+  <div class="title">注文履歴</div>
+
+  <!-- 一覧 -->
+  <div class="list">
+
+    <div class="item">
+      <div class="checkbox"></div>
+      <span class="done">済</span>
+      <span class="name">フライドポテト</span>
+      <span class="count">1点</span>
+    </div>
+
+    <div class="item">
+      <div class="checkbox checked"></div>
+      <span class="name">ポテトサラダ</span>
+      <span class="count">2点</span>
+    </div>
+
+    <div class="item">
+      <div class="checkbox"></div>
+      <span class="name">鳥めし</span>
+      <span class="count">1点</span>
+    </div>
+
+    <div class="item">
+      <div class="checkbox checked"></div>
+      <span class="name">キャベツの塩だれ</span>
+      <span class="count">1点</span>
+    </div>
+
+    <div class="item">
+      <div class="checkbox"></div>
+      <span class="name">きゅうりの一本漬け</span>
+      <span class="count">1点</span>
+    </div>
+
+    <div class="item">
+      <div class="checkbox"></div>
+      <span class="name">だし巻き</span>
+      <span class="count">1点</span>
+    </div>
+
+    <div class="item">
+      <div class="checkbox"></div>
+      <span class="name">鶏の唐揚げ</span>
+      <span class="count">1点</span>
+    </div>
+
+    <div class="item">
+      <div class="checkbox"></div>
+      <span class="name">タコのから揚げ</span>
+      <span class="count">1点</span>
+    </div>
+
+  </div>
+
+  <!-- 下ボタン -->
+  <div class="buttons">
+    <!-- 戻る：注文キャンセル入力画面へ -->
+    
+      <a href="index.html">
+      <button type="button">戻る</button>
+    </a>
+
+    <!-- 次へ：次工程用（今はダミー） -->
+    <a href="content.html">
+        <button type="button">次へ</button>
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>
