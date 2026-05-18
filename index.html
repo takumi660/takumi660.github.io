@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン</title>
+ 
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+    }
+ 
+    .screen {
+      width: 360px;
+      padding: 20px;
+      text-align: center;
+    }
+ 
+    .field {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+ 
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+ 
+    .required {
+      color: red;
+      font-size: 12px;
+    }
+ 
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+ 
+  <div class="screen">
+    <div class="field">
+      ユーザーID：<br>
+      <input type="text" id="userId">
+      <div class="required">※必須</div>
+    </div>
+ 
+    <div class="field">
+      パスワード：<br>
+      <input type="password" id="password">
+      <div class="required">※必須</div>
+    </div>
+ 
+    <button onclick="login()">ログイン</button>
+  </div>
+ 
+  <script>
+    function login() {
+      const userId = document.getElementById("userId").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (userId === "" || password === "") {
+        alert("ユーザーIDとパスワードを入力してください");
+        return;
+      }
+
+      // 入力されていればログイン（仮）
+      location.href = "employee/menu.html";
+    }
+  </script>
+ 
+</body>
+</html>
