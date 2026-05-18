@@ -1,0 +1,1 @@
+# takumi660.github.io
